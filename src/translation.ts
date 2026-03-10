@@ -2,7 +2,7 @@ import { DEFAULT_LANGUAGE } from "./constants";
 
 export interface Translation {
 	MergeFolder: string;
-	MergedFilesuffix: string;
+	DefaultOutputFileNameSuffix: string;
 	OverwriteFileQuestion: string;
 	Settings: string;
 	SettingSortMode: string;
@@ -18,6 +18,8 @@ export interface Translation {
 	SettingRemoveYamlPropertiesDescription: string;
 	SettingIncludeFilenames: string;
 	SettingIncludeFilenamesDescription: string;
+	SettingAppendSuffixToOutputFileName: string;
+	SettingAppendSuffixToOutputFileNameDescription: string;
 	Yes: string;
 	No: string;
 }
@@ -25,7 +27,7 @@ export interface Translation {
 export const TRANSLATIONS: Record<string, Translation> = {
 	de: {
 		MergeFolder: "Ordner zusammenführen",
-		MergedFilesuffix: "zusammengeführt",
+		DefaultOutputFileNameSuffix: "zusammengeführt",
 		OverwriteFileQuestion: "Vorhandene Datei überschreiben",
 		Settings: "Einstellungen",
 		SettingIncludeNestedFolders: "Verschachtelte Ordner einbeziehen",
@@ -48,10 +50,14 @@ export const TRANSLATIONS: Record<string, Translation> = {
 		SettingIncludeFilenames: "Dateinamen einbeziehen",
 		SettingIncludeFilenamesDescription:
 			"Wenn aktiviert, werden die Dateinamen in die Ausgabedatei aufgenommen.",
+		SettingAppendSuffixToOutputFileName:
+			"Suffix zum Ausgabedateinamen hinzufügen",
+		SettingAppendSuffixToOutputFileNameDescription:
+			"Wenn aktiviert, wird das Suffix '-zusammengeführt' zum Ausgabedateinamen hinzugefügt.",
 	},
 	en: {
 		MergeFolder: "Merge folder",
-		MergedFilesuffix: "merged",
+		DefaultOutputFileNameSuffix: "merged",
 		OverwriteFileQuestion: "Overwrite existing file",
 		Settings: "Settings",
 		SettingIncludeNestedFolders: "Include nested folders",
@@ -74,10 +80,14 @@ export const TRANSLATIONS: Record<string, Translation> = {
 		SettingIncludeFilenames: "Include filenames",
 		SettingIncludeFilenamesDescription:
 			"If enabled, filenames will be included in the output file.",
+		SettingAppendSuffixToOutputFileName:
+			"Append suffix to output file name",
+		SettingAppendSuffixToOutputFileNameDescription:
+			"If enabled, the suffix '-merged' will be appended to the output file name.",
 	},
 	fi: {
 		MergeFolder: "Yhdistä kansio",
-		MergedFilesuffix: "yhdistetty",
+		DefaultOutputFileNameSuffix: "yhdistetty",
 		OverwriteFileQuestion: "Korvaa olemassa oleva tiedosto",
 		Settings: "Asetukset",
 		SettingIncludeNestedFolders: "Sisällytä sisäkkäiset kansiot",
@@ -100,10 +110,14 @@ export const TRANSLATIONS: Record<string, Translation> = {
 		SettingIncludeFilenames: "Sisällytä tiedostonimet",
 		SettingIncludeFilenamesDescription:
 			"Jos käytössä, tiedostonimet sisällytetään tulostiedostoon.",
+		SettingAppendSuffixToOutputFileName:
+			"Lisää suffixi tulostiedostonimen perään",
+		SettingAppendSuffixToOutputFileNameDescription:
+			"Jos käytössä, suffixi '-yhdistetty' lisätään tulostiedostonimen perään.",
 	},
 	fr: {
 		MergeFolder: "Fusionner le dossier",
-		MergedFilesuffix: "fusionné",
+		DefaultOutputFileNameSuffix: "fusionné",
 		OverwriteFileQuestion: "Remplacer le fichier existant",
 		Settings: "Paramètres",
 		SettingIncludeNestedFolders: "Inclure les dossiers imbriqués",
@@ -127,10 +141,14 @@ export const TRANSLATIONS: Record<string, Translation> = {
 		SettingIncludeFilenames: "Inclure les noms de fichiers",
 		SettingIncludeFilenamesDescription:
 			"Si activé, les noms de fichiers seront inclus dans le fichier de sortie.",
+		SettingAppendSuffixToOutputFileName:
+			"Ajouter un suffixe au nom du fichier de sortie",
+		SettingAppendSuffixToOutputFileNameDescription:
+			"Si activé, le suffixe '-fusionné' sera ajouté au nom du fichier de sortie.",
 	},
 	ru: {
 		MergeFolder: "Объединить папку",
-		MergedFilesuffix: "совмещенный",
+		DefaultOutputFileNameSuffix: "совмещенный",
 		OverwriteFileQuestion: "Перезаписать существующий файл",
 		Settings: "Настройки",
 		SettingIncludeNestedFolders: "Влючать вложенные папки",
@@ -153,10 +171,14 @@ export const TRANSLATIONS: Record<string, Translation> = {
 		SettingIncludeFilenames: "Включать имена файлов",
 		SettingIncludeFilenamesDescription:
 			"Если включено, имена файлов будут включены в выходной файл.",
+		SettingAppendSuffixToOutputFileName:
+			"Добавить суффикс к имени выходного файла",
+		SettingAppendSuffixToOutputFileNameDescription:
+			"Если включено, суффикс '-совмещенный' будет добавлен к имени выходного файла.",
 	},
 	ua: {
 		MergeFolder: "Об'єднати папку",
-		MergedFilesuffix: "об'єднані",
+		DefaultOutputFileNameSuffix: "об'єднані",
 		OverwriteFileQuestion: "Перезаписати існуючий файл",
 		Settings: "Налаштування",
 		SettingIncludeNestedFolders: "Включити вкладені папки",
@@ -179,6 +201,10 @@ export const TRANSLATIONS: Record<string, Translation> = {
 		SettingIncludeFilenames: "Включити імена файлів",
 		SettingIncludeFilenamesDescription:
 			"Якщо ввімкнено, імена файлів будуть включені у вихідний файл.",
+		SettingAppendSuffixToOutputFileName:
+			"Додати суффікс до імені вихідного файлу",
+		SettingAppendSuffixToOutputFileNameDescription:
+			"Якщо ввімкнено, суффікс '-об'єднані' буде додано до імені вихідного файлу.",
 	},
 };
 

@@ -18,6 +18,7 @@ import {
 	NEW_LINE_CHAR,
 	PLUGIN_NAME,
 	SECTION_CHAR,
+	DEFAULT_OUTPUT_FILE_NAME_SEPARATOR,
 } from "./constants";
 import { AdvancedMergeTranslation } from "./translation";
 
@@ -79,9 +80,14 @@ export default class AdvancedMerge extends Plugin {
 			documentEntries.filter((entry) => this.filterNotes(folder, entry)),
 		);
 
-		const outputFileName = `${folder.path}-${
-			this.translation.get().MergedFilesuffix
-		}.md`;
+		// Append default suffix to output file name if the setting is enabled
+		let suffix = `.${MARKDOWN_FILE_EXTENSION}`;
+		if (this.settings.appendSuffixToOutputFileName) {
+			suffix = `${DEFAULT_OUTPUT_FILE_NAME_SEPARATOR}${this.translation.get().DefaultOutputFileNameSuffix}${suffix}`;
+		}
+
+		const outputFileName = `${folder.path}${suffix}`;
+
 		const fileExists = await vault.adapter.exists(outputFileName, false);
 		if (fileExists) {
 			new AdvancedMergeOverwriteFileModal(
@@ -174,7 +180,7 @@ export default class AdvancedMerge extends Plugin {
 	 * Applies filtering to input file.
 	 * @param {TFolder} folder - Selected folder.
 	 * @param {TFile} file - Files, to be included.
-	 * @returns {boolean} Provided file passses folder check.
+	 * @returns {boolean} Provided file passes folder check.
 	 */
 	private filterNotes(folder: TFolder, file: TAbstractFile): boolean {
 		return this.settings.includeNestedFolders
@@ -310,10 +316,6 @@ class AdvancedMergeSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.removeYamlProperties)
 					.onChange(async (value) => {
 						this.plugin.settings.removeYamlProperties = value;
-						this.plugin.settings.removeYamlProperties =
-							value === false
-								? value
-								: this.plugin.settings.removeYamlProperties;
 						await this.plugin.saveSettings();
 					}),
 			);
@@ -330,15 +332,31 @@ class AdvancedMergeSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.includeFilenames)
 					.onChange(async (value) => {
 						this.plugin.settings.includeFilenames = value;
-						this.plugin.settings.includeFilenames =
-							value === false
-								? value
-								: this.plugin.settings.includeFilenames;
 						await this.plugin.saveSettings();
 					}),
 			);
 
 		this.showIncludeFolderAsSectionSetting(containerEl);
+
+		// Add "append suffix to output file name" toggle in settings
+		new Setting(containerEl)
+			.setName(
+				this.plugin.translation.get()
+					.SettingAppendSuffixToOutputFileName,
+			)
+			.setDesc(
+				this.plugin.translation.get()
+					.SettingAppendSuffixToOutputFileNameDescription,
+			)
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.appendSuffixToOutputFileName)
+					.onChange(async (value) => {
+						this.plugin.settings.appendSuffixToOutputFileName =
+							value;
+						await this.plugin.saveSettings();
+					}),
+			);
 	}
 
 	private showIncludeFolderAsSectionSetting(containerEl: HTMLElement): void {
@@ -368,7 +386,7 @@ class AdvancedMergeSettingTab extends PluginSettingTab {
 }
 
 class AdvancedMergeOverwriteFileModal extends Modal {
-	private tranlation: AdvancedMergeTranslation;
+	private translation: AdvancedMergeTranslation;
 	private existingFileName: string;
 	private onSubmitHandler: (result: boolean) => void;
 
@@ -387,7 +405,7 @@ class AdvancedMergeOverwriteFileModal extends Modal {
 		handler: (result: boolean) => void,
 	) {
 		super(app);
-		this.tranlation = translation;
+		this.translation = translation;
 		this.existingFileName = existingFileName;
 		this.onSubmitHandler = handler;
 	}
@@ -399,7 +417,7 @@ class AdvancedMergeOverwriteFileModal extends Modal {
 		const { contentEl } = this;
 
 		contentEl.createEl("h3", {
-			text: `${this.tranlation.get().OverwriteFileQuestion} "${
+			text: `${this.translation.get().OverwriteFileQuestion} "${
 				this.existingFileName
 			}"?`,
 		});
@@ -407,7 +425,7 @@ class AdvancedMergeOverwriteFileModal extends Modal {
 		new Setting(contentEl)
 			.addButton((btn) =>
 				btn
-					.setButtonText(this.tranlation.get().No)
+					.setButtonText(this.translation.get().No)
 					.setCta()
 					.onClick(() => {
 						this.close();
@@ -416,7 +434,7 @@ class AdvancedMergeOverwriteFileModal extends Modal {
 			)
 			.addButton((btn) =>
 				btn
-					.setButtonText(this.tranlation.get().Yes)
+					.setButtonText(this.translation.get().Yes)
 					.setCta()
 					.onClick(() => {
 						this.close();

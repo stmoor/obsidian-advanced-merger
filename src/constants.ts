@@ -6,3 +6,4 @@ export const NEW_LINE_CHAR = "\n";
 export const DOUBLE_NEW_LINE_CHAR = "\n\n";
 export const SECTION_CHAR = "#";
 export const MARKDOWN_FILE_EXTENSION = "md";
+export const DEFAULT_OUTPUT_FILE_NAME_SEPARATOR = "-";

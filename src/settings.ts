@@ -8,6 +8,7 @@ export interface AdvancedMergePluginSettings {
 	includeFoldersAsSections: boolean;
 	removeYamlProperties: boolean;
 	includeFilenames: boolean;
+	appendSuffixToOutputFileName: boolean;
 }
 
 export const DEFAULT_SETTINGS: AdvancedMergePluginSettings = {
@@ -16,4 +17,5 @@ export const DEFAULT_SETTINGS: AdvancedMergePluginSettings = {
 	includeFoldersAsSections: false,
 	removeYamlProperties: false,
 	includeFilenames: true,
+	appendSuffixToOutputFileName: true,
 };
